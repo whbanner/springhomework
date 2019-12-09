@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/tx
+       http://www.springframework.org/schema/tx/spring-tx.xsd">
+
+
+
+
+    <!--1加载配置文件-->
+    <context:property-placeholder location="classpath:jdbc.properties"/>
+    <!--2加载数据源-->
+    <bean id="dateSource" class="com.alibaba.druid.pool.DruidDataSource">
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+    </bean>
+
+    <!-- 3. 配置 sqlSessionFactory-->
+    <bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <!-- 传入 数据源 -->
+        <property name="dataSource" ref="dateSource"/>
+        <!-- 传入 domain类所在包 -->
+        <property name="typeAliasesPackage" value="com.example.domain"/>
+        <!-- 传入 mapper.xml映射文件所在路径 -->
+        <property name="mapperLocations" value="classpath:mapper/*Mapper.xml"/>
+    </bean>
+    <!--4 自动扫描对象关系映射 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <!-- 传入 sqlSessionFactory -->
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.example.mapper"/>
+
+    </bean>
+    <!-- 1，2，3，4共同实现了mybatis-config.xml的功能 -->
+    <!--5 声明式事务管理 -->
+    <!--定义事务管理器，由spring管理事务 -->
+    <bean id="transactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+        <!-- 传入 数据源 -->
+        <property name="dataSource" ref="dateSource"></property>
+    </bean>
+    <!--支持注解驱动的事务管理，指定事务管理器 -->
+    <!-- 传入 5声明的事务管理器 -->
+    <tx:annotation-driven transaction-manager="transactionManager"/>
+
+    <!--6 容器自动扫描IOC组件  -->
+    <!-- 通过@Component自动发现并注册bean -->
+    <context:component-scan base-package="com.example"></context:component-scan>
+
+
+</beans>
