@@ -2,8 +2,10 @@ package com.example.services;
 
 import com.example.domain.Login;
 
-import java.util.List;
-
 public interface LoginService {
-    List<Login> findUP();
+    Login findUP(String username,String password);
+
+    String findSname(Integer sid);
+
+    Integer findsid(String username);
 }

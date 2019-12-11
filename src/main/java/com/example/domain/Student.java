@@ -3,13 +3,12 @@ package com.example.domain;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-
 @Data
 @NoArgsConstructor
-public class Login {
+public class Student {
     private String username;
-    private String password;
-    private Integer root;
-
-
+    private Integer sid;
+    private Integer sznumber;
+    private Integer sztime;
+    private Integer sgrade;
 }

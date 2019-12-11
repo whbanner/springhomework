@@ -6,13 +6,23 @@ import com.example.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 @Service("loginService")
 public class LoginServiceImpl implements LoginService {
     @Autowired
     LoginMapper loginMapper;
-    public List<Login> findUP() {
 
-        return loginMapper.findUP();
+    public Login findUP(String username,String password) {
+
+        return loginMapper.findUP(username,password);
+    }
+
+    @Override
+    public String findSname(Integer sid) {
+        return loginMapper.findSname(sid);
+    }
+
+    @Override
+    public Integer findsid(String username) {
+        return loginMapper.findsid(username);
     }
 }

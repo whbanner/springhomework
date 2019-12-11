@@ -1,10 +1,13 @@
 package com.example.mapper;
 
 import com.example.domain.Login;
-
-import java.util.List;
+import org.apache.ibatis.annotations.Param;
 
 public interface LoginMapper {
 
-    List<Login> findUP();
+    Login findUP(@Param("username") String username,@Param("password") String password);
+
+    String findSname(@Param("sid")Integer sid);
+
+    Integer findsid(@Param("username")String username);
 }

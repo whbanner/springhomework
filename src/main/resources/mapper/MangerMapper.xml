@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--namespace要与mapper对应-->
+<mapper namespace="com.example.mapper.MangerMapper">
+    <select id="findSLib" resultType="com.example.domain.Manger">
+    SELECT * from slib
+    </select>
+
+    <select id="findSClass" resultType="com.example.domain.Manger">
+    select * from sclass
+    </select>
+
+    <select id="findztable" resultType="com.example.domain.Manger">
+        select  * from sztable
+    </select>
+
+    <insert id="insertclass" parameterType="com.example.domain.Manger">
+        insert into sclass values(#{sid},#{sdate},#{snumber})
+    </insert>
+    <update id="updatesznumber" >
+    UPDATE sztable set sznumber=sznumber+1 where sid = #{sid}
+    </update>
+
+    <update id="updategrade">
+        update sztable set sgrade=#{sgrade} where sid=#{sid}
+    </update>
+
+    <select id="findsztable" resultType="com.example.domain.Manger">
+        select * from sztable where sid=#{sid}
+    </select>
+</mapper>

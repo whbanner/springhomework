@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.4.1.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {  padding-top: 90px; padding-bottom: 90px;background-color:#F9F9F9;}
+        .lie{
+                 border:none;
+                 font-size: medium;
+                 margin-top: 8px;
+                 width: 100%;
+            background-color: white;
+             }
+        #much:link{ link:none;}
+        a:link,a:visited{color:black;text-decoration:none}
+
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top " style="background-color: #000000 ">
+    <div class="container " >
+        <!--        <div class="collapse navbar-collapse " >-->
+        <!--            <p style="color: white">返回我的导师</p>-->
+        <!--        </div>-->
+        <div class="collapse navbar-collapse text-center" id="navbar" >
+            <img src="logo.png"  style="margin-left: auto;margin-right: auto;float: none;"/>
+        </div>
+    </div>
+</nav>
+<div class="text-center" style="margin-left:150px;margin-right: auto;float: none">
+<div style="width:200px;float: left">
+ <div style="background-color: #FFF7EA;height: 300px;width:100%;" class="text-center">
+     <img src="main.png" class="img-circle" style="width: 100px;height: 100px;margin-top: 80px">
+     <br><br>
+     <p>管理员</p>
+ </div>
+    <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
+        <button class="lie" style="margin-top: 18px;"><a href="main1.html" style="color: #E8BD5F">缺课详情</a></button>
+        <button class="lie" style="margin-top: 18px;"><a href="main2.html">图书馆详情</a></button>
+        <button class="lie" style="margin-top: 18px;"><a href="main3.html">学习情况总览</a></button>
+    </div>
+</div>
+    <div style="background-color: white;height: 180px;width:68%;float:left;margin-left: 20px" class="text-center">
+        <br><br>
+        <div>
+        <p style="text-align: left">详情</p>
+
+
+            <div style="border-top: solid #E8BD5F 1px;background-color: white"/>
+
+            <table class="table">
+                <thead>
+                                    <tr >
+                                        <th class="text-center">姓名</th>
+                                        <th class="text-center">日期</th>
+                                        <th class="text-center">次数</th>
+                                    </tr>
+                </thead>
+                <tbody id="noover">
+
+                </tbody>
+            </table>
+            <td><button id="butt" style="background-color:honeydew;height: 30px ;width:30%">插入</button></td>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        var j={};
+        var da=JSON.stringify(j);
+        $.ajax({
+            type: "post",//数据发送的方式（post 或者 get）
+            head: "application/json; charset=UTF-8",
+            url: "http://localhost:8080/rootclass",//要发送的后台地址
+            data: da ,//要发送的数据（参数）格式
+            contentType:"application/json; charset=UTF-8",
+            dataType: "json",//后台处理后返回的数据格式
+            success: function(data){
+                console.log(data)
+                var len=data.length;
+                for(var i=0;i<len;i++){
+                    var w1=document.createElement('tr');
+                    w1.className="active";
+                    var w11=document.createElement('td');
+                    w11.innerHTML=data[i].username;
+                    var w12=document.createElement('td');
+                    w12.innerHTML=data[i].sdate;
+                    var w13=document.createElement('td');
+                    w13.innerHTML=data[i].snumber;
+                    // var w14=document.createElement('td');
+                    // var w15=document.createElement('button');
+                    // w15.className="active";
+                    // w15.type="button";
+                    // w15.className="btn btn-warning";
+                    // w15.style.fontSize="5px";
+                    // w15.zIndex="-1";
+                    // w15.position= "absolute";
+                    // w15.innerHTML="详情";
+                    // w15.onclick=jump(i);
+                    w1.appendChild(w11);
+                    w1.appendChild(w12);
+                    w1.appendChild(w13);
+                    // w1.appendChild(w15);
+                    // w1.appendChild(w14);
+                    // w14.appendChild(w15);
+                    document.getElementById('noover').appendChild(w1);
+                }
+            }
+            })
+    }
+</script>
+</body>
+</html>

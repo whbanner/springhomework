@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="jquery-3.4.1.js"></script>
+    <script src="http://cdn.bootcss.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="http://cdn.bootcss.com/bootstrap/3.3.0/css/bootstrap.min.css">
+    <script src="http://libs.baidu.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+    <link href="http://libs.baidu.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet" />
+
+    <style>
+        body {  padding-top: 90px; padding-bottom: 90px;background-color:#F9F9F9;}
+        .lie{
+                 border:none;
+                 font-size: medium;
+                 margin-top: 8px;
+                 width: 100%;
+            background-color: white;
+
+             }
+        a:link,a:visited{color:black;text-decoration:none}
+
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-inverse navbar-fixed-top " style="background-color: #000000 ">
+    <div class="container " >
+        <div class="collapse navbar-collapse text-center" id="navbar" >
+            <img src="logo.png"  style="margin-left: auto;margin-right: auto;float: none;"/>
+        </div>
+    </div>
+</nav>
+<div class="text-center" style="margin-left:150px;margin-right: auto;float: none">
+    <div style="width:200px;float: left">
+        <div style="background-color: #FFF7EA;height: 300px;width:100%;" class="text-center">
+            <img src="main.png" class="img-circle" style="width: 100px;height: 100px;margin-top: 80px">
+            <br><br>
+            <p>学生</p>
+        </div>
+        <div style="background-color: white;border:solid white 1px; height: 300px;width:100%;" class="text-center">
+            <button class="lie" style="margin-top: 18px;"><a href="" style="color: #E8BD5F">学习情况总览</a></button>
+
+
+        </div>
+    </div>
+    <div style="background-color: white;height: 180px;width:68%;float:left;margin-left: 20px" class="text-center">
+
+        <br><br>
+
+        <div>
+            <p style="text-align: left">详情</p>
+            <div style="border-top: solid #E8BD5F 1px;background-color: white"/>
+            <table class="table">
+                <thead>
+                <tr >
+                    <th class="text-center">姓名</th>
+                    <th class="text-center">缺课次数</th>
+                    <th class="text-center">学习总时间</th>
+                    <th class="text-center">成绩</th>
+                </tr>
+                </thead>
+                <tbody id="sgradd">
+
+                </tbody>
+            </table>
+
+        </div>
+        </div>
+    </div>
+</div>
+<script>
+    window.onload = function () {
+        function getUrlParam(name) {
+            var reg = new RegExp("(^|&)" + name + "=([^&]*)(&|$)"); //构造一个含有目标参数的正则表达式对象
+            var r = window.location.search.substr(1).match(reg);  //匹配目标参数
+            if (r != null) return unescape(r[2]);
+            return null; //返回参数值
+        }
+
+        var username = getUrlParam("username")
+        var j={};
+        j.username=username;
+
+        var obj=JSON.stringify(j);
+        console.log(obj)
+        alert(username);
+        $.ajax({
+            type: "post",//数据发送的方式（post 或者 get）
+            head: "application/json; charset=UTF-8",
+            url: "http://localhost:8080/studentmain",//要发送的后台地址
+            data:obj,//要发送的数据（参数）格式
+            contentType:"application/json; charset=UTF-8",
+            dataType: "json",//后台处理后返回的数据格式
+            success: function(data){
+                console.log(data)
+
+                    var w1=document.createElement('tr');
+                    w1.className="active";
+                    var w11=document.createElement('td');
+                    w11.innerHTML=data.username;
+                    var w12=document.createElement('td');
+                    w12.innerHTML=data.sznumber;
+                    var w13=document.createElement('td');
+                    w13.innerHTML=data.sztime;
+                    var w14=document.createElement('td');
+                    w14.innerHTML=data.sgrade;
+                    w1.appendChild(w11);
+                    w1.appendChild(w12);
+                    w1.appendChild(w13);
+                    w1.appendChild(w14)
+                    document.getElementById('sgradd').appendChild(w1);
+
+            }
+        })
+    }
+
+</script>
+</body>
+</html>

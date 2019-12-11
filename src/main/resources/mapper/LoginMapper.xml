@@ -5,6 +5,12 @@
 <!--namespace要与mapper对应-->
 <mapper namespace="com.example.mapper.LoginMapper">
     <select id="findUP" resultType="com.example.domain.Login">
-        select * from login
+        select * from login where username=#{username} and password=#{password}
+    </select>
+    <select id="findSname" resultType="java.lang.String">
+        select username from login where sid=#{sid}
+    </select>
+    <select id="findsid" resultType="java.lang.Integer">
+        select sid from login where username=#{username}
     </select>
 </mapper>

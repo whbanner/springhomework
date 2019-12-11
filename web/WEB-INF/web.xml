@@ -29,4 +29,8 @@
         <servlet-name>DispatcherServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
+    
+    <welcome-file-list>
+        <welcome-file>statics/login0.html</welcome-file>
+    </welcome-file-list>
 </web-app>
