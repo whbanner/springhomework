@@ -1,6 +1,5 @@
 package com.example.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.example.domain.Login;
 import com.example.services.LoginService;
 import org.springframework.beans.factory.annotation.Autowired;

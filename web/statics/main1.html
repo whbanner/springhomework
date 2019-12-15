@@ -70,9 +70,39 @@
             </table>
             <td><button id="butt" style="background-color:honeydew;height: 30px ;width:30%">插入</button></td>
         </div>
+        <div id="insert" style="display: none">
+            <input id="u" placeholder="请输入姓名">
+            <input id="d" placeholder="请输入日期">
+            <input id="n" placeholder="请输入次数">
+            <button id="commit">提交</button>
+        </div>
     </div>
 </div>
 <script>
+    var isShow=false;
+    $("#butt").click(function () {
+        $("#insert").css("display","block")
+    })
+    $("#commit").click(function (){
+        var jd={};
+        jd.username=$("#u").val();
+        jd.sdate=$("#d").val();
+        jd.snumber=$("#n").val();
+        var da=JSON.stringify(jd);
+        console.log("insert"+da)
+        $.ajax({
+            type: "post",//数据发送的方式（post 或者 get）
+            head: "application/json; charset=UTF-8",
+            url: "http://localhost:8080/rootinsertclass",//要发送的后台地址
+            data: da ,//要发送的数据（参数）格式
+            contentType:"application/json; charset=UTF-8",
+            dataType: "json",//后台处理后返回的数据格式
+            success: function(data){
+                alert("插入成功")
+            }
+        })
+        $("#insert").css("display","none");
+    })
     window.onload = function () {
         var j={};
         var da=JSON.stringify(j);

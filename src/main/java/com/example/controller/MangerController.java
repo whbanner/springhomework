@@ -56,8 +56,18 @@ public class MangerController {
         for (int i=0;i<len;i++){
             Manger m =list.get(i);
             m.setUsername(loginService.findSname(m.getSid()));
+
+            //更新成绩
+            Integer sid=m.getSid();
+            Manger mm=mangerService.findsztable(sid);
+            Integer ssnumber=mm.getSznumber();
+            Integer ssztime=mm.getSztime();
+            Integer ssgrade = 60-ssnumber*5+ssztime/10;
+            mangerService.updategrade(ssgrade,sid);
         }
         System.out.println(JSON.toJSONString(list));
+
+
     return JSON.toJSONString(list);
     }
 
@@ -71,12 +81,7 @@ public class MangerController {
         Integer sid = loginService.findsid(username);
         mangerService.insertclass(sid,sdate,snumber);
         mangerService.updatesznumber(sid);
-        //更新成绩
-        Manger mm=mangerService.findsztable(sid);
-        Integer ssnumber=mm.getSznumber();
-        Integer ssztime=mm.getSztime();
-        Integer ssgrade = 60-snumber*5+ssztime/10;
-        mangerService.updategrade(ssgrade,sid);
+
 
 
         return "ok";

@@ -1,7 +1,6 @@
 package com.example.controller;
 
 import com.alibaba.fastjson.JSON;
-import com.example.domain.Manger;
 import com.example.domain.Student;
 import com.example.services.LoginService;
 import com.example.services.StudentService;
